@@ -18,10 +18,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   fetch('http://localhost:3000/toys')
   .then(res => res.json())
-  .then(function (json) {
-  json.forEach(function (obj) {
-    turnToysIntoHTMLElementsInCollection(obj)
-  })
+  .then(function (jsonArray) {
+  for(let i = 0; i < jsonArray.length; i++) {
+    turnToysIntoHTMLElementsInCollection(jsonArray[i])
+    }
   })
 
   function turnToysIntoHTMLElementsInCollection(jsonObj) {
@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const toyLikesButton = document.createElement('button')
           toyLikesButton.classList.add('like-btn')
+          toyLikesButton.innerText = 'Like <3'
 
     toySpan.append(toyName, toyImage, toyLikes, toyLikesButton)
     getToys.append(toySpan)
