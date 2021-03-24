@@ -46,6 +46,27 @@ document.addEventListener("DOMContentLoaded", () => {
     toySpan.append(toyName, toyImage, toyLikes, toyLikesButton)
     getToys.append(toySpan)
     toyCollection.append(getToys);
+    
+    toyLikesButton.addEventListener("click", function(evt){
+      evt.preventDefault()
+
+      fetch(`http://localhost:3000/toys/${jsonObj.id}`, {
+        method: "PATCH",
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept' : 'application/json'
+        },
+        body: JSON.stringify({
+          'likes' : jsonObj.likes + 1
+        })
+      })
+        .then (response => response.json())
+        .then(function(updatedObj) {
+          jsonObj = updatedObj
+          toyLikes.innerText = updatedObj.likes
+        })
+    })
+  
   }
 
   getToyForm.addEventListener('submit', function(evt) {
